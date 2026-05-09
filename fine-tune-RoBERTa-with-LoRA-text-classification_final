@@ -1,0 +1,1773 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "vo2gFa3FOa1E"
+   },
+   "source": [
+    "# **Library Stuff**"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/"
+    },
+    "collapsed": true,
+    "executionInfo": {
+     "elapsed": 4461,
+     "status": "ok",
+     "timestamp": 1778237401177,
+     "user": {
+      "displayName": "aleyna kırmızı",
+      "userId": "09194434719786864226"
+     },
+     "user_tz": -180
+    },
+    "id": "cI5_KQv9NTsn",
+    "outputId": "b56f349b-a2f2-423d-bb75-240e6c3ad391"
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Collecting evaluate\n",
+      "  Downloading evaluate-0.4.6-py3-none-any.whl.metadata (9.5 kB)\n",
+      "Requirement already satisfied: datasets>=2.0.0 in /usr/local/lib/python3.12/dist-packages (from evaluate) (4.0.0)\n",
+      "Requirement already satisfied: numpy>=1.17 in /usr/local/lib/python3.12/dist-packages (from evaluate) (2.0.2)\n",
+      "Requirement already satisfied: dill in /usr/local/lib/python3.12/dist-packages (from evaluate) (0.3.8)\n",
+      "Requirement already satisfied: pandas in /usr/local/lib/python3.12/dist-packages (from evaluate) (2.2.2)\n",
+      "Requirement already satisfied: requests>=2.19.0 in /usr/local/lib/python3.12/dist-packages (from evaluate) (2.32.4)\n",
+      "Requirement already satisfied: tqdm>=4.62.1 in /usr/local/lib/python3.12/dist-packages (from evaluate) (4.67.3)\n",
+      "Requirement already satisfied: xxhash in /usr/local/lib/python3.12/dist-packages (from evaluate) (3.6.0)\n",
+      "Requirement already satisfied: multiprocess in /usr/local/lib/python3.12/dist-packages (from evaluate) (0.70.16)\n",
+      "Requirement already satisfied: fsspec>=2021.05.0 in /usr/local/lib/python3.12/dist-packages (from fsspec[http]>=2021.05.0->evaluate) (2025.3.0)\n",
+      "Requirement already satisfied: huggingface-hub>=0.7.0 in /usr/local/lib/python3.12/dist-packages (from evaluate) (1.11.0)\n",
+      "Requirement already satisfied: packaging in /usr/local/lib/python3.12/dist-packages (from evaluate) (26.1)\n",
+      "Requirement already satisfied: filelock in /usr/local/lib/python3.12/dist-packages (from datasets>=2.0.0->evaluate) (3.29.0)\n",
+      "Requirement already satisfied: pyarrow>=15.0.0 in /usr/local/lib/python3.12/dist-packages (from datasets>=2.0.0->evaluate) (18.1.0)\n",
+      "Requirement already satisfied: pyyaml>=5.1 in /usr/local/lib/python3.12/dist-packages (from datasets>=2.0.0->evaluate) (6.0.3)\n",
+      "Requirement already satisfied: aiohttp!=4.0.0a0,!=4.0.0a1 in /usr/local/lib/python3.12/dist-packages (from fsspec[http]>=2021.05.0->evaluate) (3.13.5)\n",
+      "Requirement already satisfied: hf-xet<2.0.0,>=1.4.3 in /usr/local/lib/python3.12/dist-packages (from huggingface-hub>=0.7.0->evaluate) (1.4.3)\n",
+      "Requirement already satisfied: httpx<1,>=0.23.0 in /usr/local/lib/python3.12/dist-packages (from huggingface-hub>=0.7.0->evaluate) (0.28.1)\n",
+      "Requirement already satisfied: typer in /usr/local/lib/python3.12/dist-packages (from huggingface-hub>=0.7.0->evaluate) (0.24.2)\n",
+      "Requirement already satisfied: typing-extensions>=4.1.0 in /usr/local/lib/python3.12/dist-packages (from huggingface-hub>=0.7.0->evaluate) (4.15.0)\n",
+      "Requirement already satisfied: charset_normalizer<4,>=2 in /usr/local/lib/python3.12/dist-packages (from requests>=2.19.0->evaluate) (3.4.7)\n",
+      "Requirement already satisfied: idna<4,>=2.5 in /usr/local/lib/python3.12/dist-packages (from requests>=2.19.0->evaluate) (3.13)\n",
+      "Requirement already satisfied: urllib3<3,>=1.21.1 in /usr/local/lib/python3.12/dist-packages (from requests>=2.19.0->evaluate) (2.5.0)\n",
+      "Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.12/dist-packages (from requests>=2.19.0->evaluate) (2026.4.22)\n",
+      "Requirement already satisfied: python-dateutil>=2.8.2 in /usr/local/lib/python3.12/dist-packages (from pandas->evaluate) (2.9.0.post0)\n",
+      "Requirement already satisfied: pytz>=2020.1 in /usr/local/lib/python3.12/dist-packages (from pandas->evaluate) (2025.2)\n",
+      "Requirement already satisfied: tzdata>=2022.7 in /usr/local/lib/python3.12/dist-packages (from pandas->evaluate) (2026.1)\n",
+      "Requirement already satisfied: aiohappyeyeballs>=2.5.0 in /usr/local/lib/python3.12/dist-packages (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]>=2021.05.0->evaluate) (2.6.1)\n",
+      "Requirement already satisfied: aiosignal>=1.4.0 in /usr/local/lib/python3.12/dist-packages (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]>=2021.05.0->evaluate) (1.4.0)\n",
+      "Requirement already satisfied: attrs>=17.3.0 in /usr/local/lib/python3.12/dist-packages (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]>=2021.05.0->evaluate) (26.1.0)\n",
+      "Requirement already satisfied: frozenlist>=1.1.1 in /usr/local/lib/python3.12/dist-packages (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]>=2021.05.0->evaluate) (1.8.0)\n",
+      "Requirement already satisfied: multidict<7.0,>=4.5 in /usr/local/lib/python3.12/dist-packages (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]>=2021.05.0->evaluate) (6.7.1)\n",
+      "Requirement already satisfied: propcache>=0.2.0 in /usr/local/lib/python3.12/dist-packages (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]>=2021.05.0->evaluate) (0.4.1)\n",
+      "Requirement already satisfied: yarl<2.0,>=1.17.0 in /usr/local/lib/python3.12/dist-packages (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]>=2021.05.0->evaluate) (1.23.0)\n",
+      "Requirement already satisfied: anyio in /usr/local/lib/python3.12/dist-packages (from httpx<1,>=0.23.0->huggingface-hub>=0.7.0->evaluate) (4.13.0)\n",
+      "Requirement already satisfied: httpcore==1.* in /usr/local/lib/python3.12/dist-packages (from httpx<1,>=0.23.0->huggingface-hub>=0.7.0->evaluate) (1.0.9)\n",
+      "Requirement already satisfied: h11>=0.16 in /usr/local/lib/python3.12/dist-packages (from httpcore==1.*->httpx<1,>=0.23.0->huggingface-hub>=0.7.0->evaluate) (0.16.0)\n",
+      "Requirement already satisfied: six>=1.5 in /usr/local/lib/python3.12/dist-packages (from python-dateutil>=2.8.2->pandas->evaluate) (1.17.0)\n",
+      "Requirement already satisfied: click>=8.2.1 in /usr/local/lib/python3.12/dist-packages (from typer->huggingface-hub>=0.7.0->evaluate) (8.3.3)\n",
+      "Requirement already satisfied: shellingham>=1.3.0 in /usr/local/lib/python3.12/dist-packages (from typer->huggingface-hub>=0.7.0->evaluate) (1.5.4)\n",
+      "Requirement already satisfied: rich>=12.3.0 in /usr/local/lib/python3.12/dist-packages (from typer->huggingface-hub>=0.7.0->evaluate) (13.9.4)\n",
+      "Requirement already satisfied: annotated-doc>=0.0.2 in /usr/local/lib/python3.12/dist-packages (from typer->huggingface-hub>=0.7.0->evaluate) (0.0.4)\n",
+      "Requirement already satisfied: markdown-it-py>=2.2.0 in /usr/local/lib/python3.12/dist-packages (from rich>=12.3.0->typer->huggingface-hub>=0.7.0->evaluate) (4.0.0)\n",
+      "Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /usr/local/lib/python3.12/dist-packages (from rich>=12.3.0->typer->huggingface-hub>=0.7.0->evaluate) (2.20.0)\n",
+      "Requirement already satisfied: mdurl~=0.1 in /usr/local/lib/python3.12/dist-packages (from markdown-it-py>=2.2.0->rich>=12.3.0->typer->huggingface-hub>=0.7.0->evaluate) (0.1.2)\n",
+      "Downloading evaluate-0.4.6-py3-none-any.whl (84 kB)\n",
+      "\u001b[2K   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m84.1/84.1 kB\u001b[0m \u001b[31m1.2 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\n",
+      "\u001b[?25hInstalling collected packages: evaluate\n",
+      "Successfully installed evaluate-0.4.6\n"
+     ]
+    }
+   ],
+   "source": [
+    "!pip install evaluate"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/"
+    },
+    "executionInfo": {
+     "elapsed": 7830,
+     "status": "ok",
+     "timestamp": 1778240150271,
+     "user": {
+      "displayName": "aleyna kırmızı",
+      "userId": "09194434719786864226"
+     },
+     "user_tz": -180
+    },
+    "id": "nmdlIi4XXski",
+    "outputId": "e30cbf80-2348-4404-a91c-b51cd4a3166a"
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Requirement already satisfied: torchao in /usr/local/lib/python3.12/dist-packages (0.10.0)\n",
+      "Collecting torchao\n",
+      "  Downloading torchao-0.17.0-cp310-abi3-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (20 kB)\n",
+      "Downloading torchao-0.17.0-cp310-abi3-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (3.2 MB)\n",
+      "\u001b[2K   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m3.2/3.2 MB\u001b[0m \u001b[31m10.3 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\n",
+      "\u001b[?25hInstalling collected packages: torchao\n",
+      "  Attempting uninstall: torchao\n",
+      "    Found existing installation: torchao 0.10.0\n",
+      "    Uninstalling torchao-0.10.0:\n",
+      "      Successfully uninstalled torchao-0.10.0\n",
+      "Successfully installed torchao-0.17.0\n"
+     ]
+    }
+   ],
+   "source": [
+    "!pip install torchao -U"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "id": "dgOsHsMMHQgG"
+   },
+   "outputs": [],
+   "source": [
+    "from datasets import load_dataset, DatasetDict,Dataset\n",
+    "from transformers import (\n",
+    "    AutoTokenizer,\n",
+    "    AutoConfig,\n",
+    "    AutoModelForSequenceClassification,\n",
+    "    DataCollatorWithPadding,\n",
+    "    TrainingArguments,\n",
+    "    Trainer,\n",
+    "    pipeline)\n",
+    "from peft import PeftModel, PeftConfig, get_peft_model, LoraConfig\n",
+    "import evaluate\n",
+    "import torch\n",
+    "import numpy as np"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "6M4i2Y4sOYw6"
+   },
+   "source": [
+    "# **Dataset**"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/",
+     "height": 177,
+     "referenced_widgets": [
+      "9977f09f717642aaa92061a5d2ef6422",
+      "d0e3a2a364c84e53b31ac86952fd0947",
+      "732d526e72e1476da4b24ec4d713fb48",
+      "77e73a6e55d84bbfaca57a9bb74c1b88",
+      "6c44fd3b5a6041cc8e77b681dd77beca",
+      "d1fe595622d64c0fb0dd888e2b30edb2",
+      "aeb971fbf1c44c339f46484a140ec486",
+      "e2d4db412d4c45ab9f55d1c6c89f846b",
+      "56c1a2dc007942d68100ec2aa7952a0d",
+      "7882160cad364f08af6a39332f793e7b",
+      "33547fe7071549c291c96f0ecfce3554",
+      "a6d0c3072a914eac8ebc570967a685c3",
+      "9977455ed1754d699c0fe91188449c66",
+      "536e5bf24cb3420a970bfa7796c5e000",
+      "ee2c4bdc99584289afde0e0cbd202d2a",
+      "ae55731c8df9494a83df0ef95da7d3d2",
+      "b10c20de49814846b3abaedc2267259e",
+      "9d60a9ac363c41d3ae008749a5e73b68",
+      "1f535503f82b487885632d35df19196f",
+      "88c1a5f7a0a843f283c2263266322b88",
+      "cce1cfd953d74ac6a65ad0f7278e87c4",
+      "40cf6d5c6f5f4632b9a5f3d6f29ca7ba",
+      "ac61ca6cb7e84be0a6b821bd96045833",
+      "9d04a139a71e48969c2aac642e57d793",
+      "17d57dca029a45fea4de9c9d9298e55a",
+      "70722f0b509a46ac8308a1aea43ddf18",
+      "cec63e1075544da5bbc682a826767ed3",
+      "0704d136521b40a2920bd7afd499a52e",
+      "8bbfe4c729bf493e8e4c4f1c1d92dcf4",
+      "a8a88dae5d124698ab4ad3aa1cba765c",
+      "6d81be63898e49ac8f64efeffea27c49",
+      "6c39291010ec475aa46a268a5ff4d336",
+      "e2c6f2cf036c43f9a8ff1330ca95b240",
+      "18fb98eb4e274c5b84b0717f9c228e53",
+      "a4fdd8b0ec9b4e0093334788d13727c8",
+      "86fb2054274b4edc83fe344e10ea8ca1",
+      "ed5cad835abb4fc3afcf73afd631b8e0",
+      "1a57c02c944945feaa59ad66684ef503",
+      "db0e6e5259974c2fb7b7deebd10783e7",
+      "445bc9d1a67e4b6c904018db1ddd624b",
+      "2d51467125d9483c95fcb6dd613955a8",
+      "e096be5543bc409b9f812c2acf7655bb",
+      "bed66be8441e4a1198b35c313cb87886",
+      "8f55de351348442e9482c5f68c56e818",
+      "a895ee05a3d3404c841807378a468173",
+      "d381d7fbfda4459caf8fb91fb5ca065e",
+      "500e02a835cb4582bb24a77444a71a1f",
+      "3b18af89650749caa594ddbeb54eacc6",
+      "3f29e1984ac046949303cf18b9ab60b5",
+      "4c77b7f93fac4368a8a83bde22052288",
+      "9e6f80b87854410e8b1bc8b37e38ad62",
+      "627600bba71b4a6e8b364fa9c3db3271",
+      "1c4b68003cda436e827876cdf6f33bae",
+      "97a43ede6b9e444e8849b914cefb46b5",
+      "a1f769b24fb14235ac039da51518a90f"
+     ]
+    },
+    "executionInfo": {
+     "elapsed": 8077,
+     "status": "ok",
+     "timestamp": 1778238436746,
+     "user": {
+      "displayName": "aleyna kırmızı",
+      "userId": "09194434719786864226"
+     },
+     "user_tz": -180
+    },
+    "id": "sq_ieseROgam",
+    "outputId": "9a8a307c-be6d-43c8-b326-b0414f56a5c7"
+   },
+   "outputs": [
+    {
+     "data": {
+      "application/vnd.jupyter.widget-view+json": {
+       "model_id": "9977f09f717642aaa92061a5d2ef6422",
+       "version_major": 2,
+       "version_minor": 0
+      },
+      "text/plain": [
+       "README.md:   0%|          | 0.00/592 [00:00<?, ?B/s]"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "application/vnd.jupyter.widget-view+json": {
+       "model_id": "a6d0c3072a914eac8ebc570967a685c3",
+       "version_major": 2,
+       "version_minor": 0
+      },
+      "text/plain": [
+       "data/train-00000-of-00001-5a744bf76a1d84(…):   0%|          | 0.00/836k [00:00<?, ?B/s]"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "application/vnd.jupyter.widget-view+json": {
+       "model_id": "ac61ca6cb7e84be0a6b821bd96045833",
+       "version_major": 2,
+       "version_minor": 0
+      },
+      "text/plain": [
+       "data/validation-00000-of-00001-a3a52fabb(…):   0%|          | 0.00/853k [00:00<?, ?B/s]"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "application/vnd.jupyter.widget-view+json": {
+       "model_id": "18fb98eb4e274c5b84b0717f9c228e53",
+       "version_major": 2,
+       "version_minor": 0
+      },
+      "text/plain": [
+       "Generating train split:   0%|          | 0/1000 [00:00<?, ? examples/s]"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "application/vnd.jupyter.widget-view+json": {
+       "model_id": "a895ee05a3d3404c841807378a468173",
+       "version_major": 2,
+       "version_minor": 0
+      },
+      "text/plain": [
+       "Generating validation split:   0%|          | 0/1000 [00:00<?, ? examples/s]"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "dataset = load_dataset('shawhin/imdb-truncated')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/"
+    },
+    "executionInfo": {
+     "elapsed": 35,
+     "status": "ok",
+     "timestamp": 1778238491609,
+     "user": {
+      "displayName": "aleyna kırmızı",
+      "userId": "09194434719786864226"
+     },
+     "user_tz": -180
+    },
+    "id": "9b9a5QIKOgYQ",
+    "outputId": "719b0bed-eb25-4f95-f43f-3d104d3bc1c3"
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Train DF\n",
+      "   label                                               text\n",
+      "0      1  . . . or type on a computer keyboard, they'd p...\n",
+      "1      1  During 1933 this film had many cuts taken from...\n",
+      "2      0  Let me be clear. I've used IMDb for years. But...\n",
+      "Test DF\n",
+      "   label                                               text\n",
+      "0      1  Disgused as an Asian Horror, \"A Tale Of Two Si...\n",
+      "1      1  I am from Texas and my family vacationed a cou...\n",
+      "2      0  Robert Altman's \"Quintet\" is a dreary, gloomy,...\n"
+     ]
+    }
+   ],
+   "source": [
+    "train_df = dataset['train'].to_pandas()\n",
+    "val_df = dataset['validation'].to_pandas()\n",
+    "print('Train DF')\n",
+    "print(train_df.head(3))\n",
+    "print('Test DF')\n",
+    "print(val_df.head(3))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "0RaeT_A3OeXo"
+   },
+   "source": [
+    "# **Training Part**"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "id": "oY9Rdu9eNSkM"
+   },
+   "outputs": [],
+   "source": [
+    "model_checkpoint= 'FacebookAI/roberta-base'"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "id": "7IvaqOjWNtBg"
+   },
+   "outputs": [],
+   "source": [
+    "id2label = {0: 'NEGATIVE', 1: 'POSITIVE'}\n",
+    "label2id = {'NEGATIVE': 0, 'POSITIVE': 1}"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/",
+     "height": 353,
+     "referenced_widgets": [
+      "73fd1ea88bcb4ae88984e169cfc7ba27",
+      "007193821a714bfaa5a59d52bc8f752f",
+      "262cbf7c8db94016935db7ca36577fdd",
+      "45b460d12ce7491a8a58acc392f1f3b9",
+      "15122f3b046f41949ccdf8213e967095",
+      "c45dd066b5984b45bfc15cc638b39a2a",
+      "b7e970b950ec4aada5efa6a85616899c",
+      "d54028a71b76407d8b30f4ba412586fd",
+      "ba254f02a4b041fb8dea9f808379308e",
+      "7e11bf02cb47445cbb940cbbc0795f07",
+      "498c211ff7134205ac66f18277e1e740"
+     ]
+    },
+    "executionInfo": {
+     "elapsed": 1627,
+     "status": "ok",
+     "timestamp": 1778238701218,
+     "user": {
+      "displayName": "aleyna kırmızı",
+      "userId": "09194434719786864226"
+     },
+     "user_tz": -180
+    },
+    "id": "FzL9TXOGN2S-",
+    "outputId": "bd739ea3-519b-490c-9023-bb45c86748fa"
+   },
+   "outputs": [
+    {
+     "data": {
+      "application/vnd.jupyter.widget-view+json": {
+       "model_id": "73fd1ea88bcb4ae88984e169cfc7ba27",
+       "version_major": 2,
+       "version_minor": 0
+      },
+      "text/plain": [
+       "Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "RobertaForSequenceClassification LOAD REPORT from: FacebookAI/roberta-base\n",
+      "Key                             | Status     | \n",
+      "--------------------------------+------------+-\n",
+      "lm_head.layer_norm.bias         | UNEXPECTED | \n",
+      "lm_head.dense.weight            | UNEXPECTED | \n",
+      "lm_head.bias                    | UNEXPECTED | \n",
+      "roberta.embeddings.position_ids | UNEXPECTED | \n",
+      "lm_head.dense.bias              | UNEXPECTED | \n",
+      "lm_head.layer_norm.weight       | UNEXPECTED | \n",
+      "classifier.out_proj.bias        | MISSING    | \n",
+      "classifier.dense.bias           | MISSING    | \n",
+      "classifier.dense.weight         | MISSING    | \n",
+      "classifier.out_proj.weight      | MISSING    | \n",
+      "\n",
+      "Notes:\n",
+      "- UNEXPECTED\t:can be ignored when loading from different task/architecture; not ok if you expect identical arch.\n",
+      "- MISSING\t:those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.\n"
+     ]
+    }
+   ],
+   "source": [
+    "model = AutoModelForSequenceClassification.from_pretrained(\n",
+    "    model_checkpoint,num_labels=2,\n",
+    "    id2label=id2label,\n",
+    "    label2id=label2id\n",
+    ")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "Wlf4FnmLSFwx"
+   },
+   "source": [
+    "**Preprocessing**"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/",
+     "height": 145,
+     "referenced_widgets": [
+      "b88f63944b9d48fd867c7660042a656c",
+      "df952455950542f1bbb57c0aa7c229d8",
+      "b970d35a715e45c48851230f9b8393a0",
+      "aa63ece31f694037ad5687806de0b593",
+      "70cb08294b59454f94a847f6820f7d44",
+      "478946580e034a3f8850b9876a3b751f",
+      "188de96d76c34b9ca8b8deaa436ca778",
+      "815b3d49a3ab4e72b0e20a4f7463cbb0",
+      "eff253185df1461291fdf05380fda130",
+      "715342e115fd41a4bf9985c6719342a5",
+      "2a1e2556d69f46ddaf86465db81e7010",
+      "13f3a2ab0c6b4bb989c4f53ebfc0cf1a",
+      "e3bbcfb0ff304fd3b7dfd241115eb7de",
+      "88ee5997bba5421e8ce0ee8d99c73954",
+      "48f5df61ab0742ba99b094bc10e0f765",
+      "16ed7c5d89d344888c41d29dd4b0332f",
+      "af450c40d9e54fb78fc6d362693a5d2f",
+      "f40eb2fc6b58419080303f269facd97d",
+      "a516cc01f1da444a9f3776168062e562",
+      "0774136198ed43aba9eba2919548011e",
+      "ad53e315737e4e8bae690596e2711d10",
+      "470ddc52180e4f20947a3dced94215b8",
+      "699e62abbd5c4e4888ebb67041ae8178",
+      "72384c1613a64655bf320a0b57d66e56",
+      "872337b2c445406a91e1cc5e75e3db85",
+      "a2f1e0e12dcc4aadba913f96c88642d5",
+      "2c3574b2d7554d85832886807689c313",
+      "2559f545352a40b9ac5b08527089dc96",
+      "c067da2385d043f48af3d517140c4a23",
+      "160cb05bc4564a60912443d3630e9e0c",
+      "1773ef77ce654daf9211933b007ba7da",
+      "fbe90e800df641389b58f9ffb3376a46",
+      "584181585c48494ba3cbb508e6e244d2",
+      "3aeb81d9cca24ff882f10c1e0f77853d",
+      "c6537c2a7e9d4ab394999c3566428f8b",
+      "30bfb0472ca5466dabbbf20d2f112279",
+      "f242610b8f70431a998ca983c481c813",
+      "2fb1a697319d4217b0d8c3748c72f65d",
+      "6adeae6c75c6419eb84a18a5db89bf47",
+      "1548d1ac93b946fea04a5d6fae3fb74f",
+      "20900973844446728a7fc176ac986bc1",
+      "1539cbf39d4a459cb97317294604c1ed",
+      "cbf696f44a7642679c382dc5230cd86c",
+      "3d86660430b84f1dacf2b1a632a15db9"
+     ]
+    },
+    "executionInfo": {
+     "elapsed": 3063,
+     "status": "ok",
+     "timestamp": 1778238725152,
+     "user": {
+      "displayName": "aleyna kırmızı",
+      "userId": "09194434719786864226"
+     },
+     "user_tz": -180
+    },
+    "id": "8KozpN8ZN9W-",
+    "outputId": "0bc6dc84-805b-4a93-b972-4e8bb4557f91"
+   },
+   "outputs": [
+    {
+     "data": {
+      "application/vnd.jupyter.widget-view+json": {
+       "model_id": "b88f63944b9d48fd867c7660042a656c",
+       "version_major": 2,
+       "version_minor": 0
+      },
+      "text/plain": [
+       "tokenizer_config.json:   0%|          | 0.00/25.0 [00:00<?, ?B/s]"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "application/vnd.jupyter.widget-view+json": {
+       "model_id": "13f3a2ab0c6b4bb989c4f53ebfc0cf1a",
+       "version_major": 2,
+       "version_minor": 0
+      },
+      "text/plain": [
+       "vocab.json: 0.00B [00:00, ?B/s]"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "application/vnd.jupyter.widget-view+json": {
+       "model_id": "699e62abbd5c4e4888ebb67041ae8178",
+       "version_major": 2,
+       "version_minor": 0
+      },
+      "text/plain": [
+       "merges.txt: 0.00B [00:00, ?B/s]"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "application/vnd.jupyter.widget-view+json": {
+       "model_id": "3aeb81d9cca24ff882f10c1e0f77853d",
+       "version_major": 2,
+       "version_minor": 0
+      },
+      "text/plain": [
+       "tokenizer.json: 0.00B [00:00, ?B/s]"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "tokenizer = AutoTokenizer.from_pretrained(model_checkpoint, add_prefix_space=True)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/",
+     "height": 260,
+     "referenced_widgets": [
+      "da02e06635de451e909c579d4186e385",
+      "00d678344e514784b83efec26cf3f6c0",
+      "85bf46054df94e148c49121a730513af",
+      "8526881bd77844478f56e9d4f9f12ec3",
+      "6b0e223409d849b69de396a4f027b2d0",
+      "b23e9c760bf6470c9d9c768d0cfb350f",
+      "4e512c54babb4d97a47e15b9ca5fbeed",
+      "0eba5ee6619b492b93c5db008b15bf8d",
+      "ab55ef39ddd24ca2ace28bbb503ae5f8",
+      "0ca262471841409288d0fd4704db1b12",
+      "2e00c3d5e74640bfa785946def1e1737",
+      "a2e3dd4285854daf97b999b6cdedd23f",
+      "03d6d08f51d540a7be6e51078c59c43c",
+      "281a822778364bbdbc54f772c352928f",
+      "b90da1ed4e95478caa84e3028a6b88af",
+      "99b601b9ea3743fbbbfabeb63be4063b",
+      "943af631db8547d8b03d85a74b79aea8",
+      "635cab5811f64f19901d8a91afe2ceae",
+      "b510a5f03801455cb401ccf24591ecea",
+      "6c6b2907a7ca4424a81838ec2b7e6ff9",
+      "51353ab76bde4bf39319ce99e7166174",
+      "950d80a84a24401e83e2c46d547643f3"
+     ]
+    },
+    "executionInfo": {
+     "elapsed": 4504,
+     "status": "ok",
+     "timestamp": 1778239405607,
+     "user": {
+      "displayName": "aleyna kırmızı",
+      "userId": "09194434719786864226"
+     },
+     "user_tz": -180
+    },
+    "id": "CVlU5IXYR4_z",
+    "outputId": "d2be82c2-afb0-4928-9dc9-8c1f09a1431b"
+   },
+   "outputs": [
+    {
+     "data": {
+      "application/vnd.jupyter.widget-view+json": {
+       "model_id": "da02e06635de451e909c579d4186e385",
+       "version_major": 2,
+       "version_minor": 0
+      },
+      "text/plain": [
+       "Map:   0%|          | 0/1000 [00:00<?, ? examples/s]"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "application/vnd.jupyter.widget-view+json": {
+       "model_id": "a2e3dd4285854daf97b999b6cdedd23f",
+       "version_major": 2,
+       "version_minor": 0
+      },
+      "text/plain": [
+       "Map:   0%|          | 0/1000 [00:00<?, ? examples/s]"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "DatasetDict({\n",
+       "    train: Dataset({\n",
+       "        features: ['label', 'text', 'input_ids', 'attention_mask'],\n",
+       "        num_rows: 1000\n",
+       "    })\n",
+       "    validation: Dataset({\n",
+       "        features: ['label', 'text', 'input_ids', 'attention_mask'],\n",
+       "        num_rows: 1000\n",
+       "    })\n",
+       "})"
+      ]
+     },
+     "execution_count": 13,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "def tokenize_function(data):\n",
+    "  text = data['text']\n",
+    "  tokenizer.truncation_side='left'\n",
+    "  tokenized_inputs = tokenizer(\n",
+    "      text,\n",
+    "      return_tensors='np',\n",
+    "      truncation=True,\n",
+    "      max_length=512,\n",
+    "  )\n",
+    "  return tokenized_inputs\n",
+    "if tokenizer.pad_token is None:\n",
+    "  tokenizer.add_special_tokens({'pad_token': '[PAD]'})\n",
+    "  model.resize_token_embeddings(len(tokenizer))\n",
+    "tokenized_dataset = dataset.map(tokenize_function, batched=True)\n",
+    "tokenized_dataset"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/",
+     "height": 112
+    },
+    "executionInfo": {
+     "elapsed": 30,
+     "status": "ok",
+     "timestamp": 1778239494398,
+     "user": {
+      "displayName": "aleyna kırmızı",
+      "userId": "09194434719786864226"
+     },
+     "user_tz": -180
+    },
+    "id": "7Up10InoS3TD",
+    "outputId": "a12e620c-8889-457a-f591-0e9a11dbe80f"
+   },
+   "outputs": [
+    {
+     "data": {
+      "application/vnd.google.colaboratory.intrinsic+json": {
+       "summary": "{\n  \"name\": \"tokenized_dataset['train']\",\n  \"rows\": 2,\n  \"fields\": [\n    {\n      \"column\": \"label\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 0,\n        \"min\": 1,\n        \"max\": 1,\n        \"num_unique_values\": 1,\n        \"samples\": [\n          1\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"text\",\n      \"properties\": {\n        \"dtype\": \"string\",\n        \"num_unique_values\": 2,\n        \"samples\": [\n          \"During 1933 this film had many cuts taken from it because it was very over the top for the story content and the fact that Lily Powers,(Barbara Stanwyck) would do anything to obtain great wealth and power. Lily's father had forced his daughter into prostitution at the age of 14 and she grew up in a steel mill of a town with very poor people and her father ran a speakeasy which brought into his home all kinds of male characters who had their eye on Lily. As the story progresses, Lily meets up with man after man and eventually finds a guy who has everything and is a playboy bank president It is great to see a very young John Wayne, (Jimmy McCoy Jr.) who was only 25 when this picture was produced and Jimmy did not even get to first base with Lily, not even for lunch. A very young George Brent, (Coutland Trenholm) stars along with Barbara Stanwyck and both gave outstanding performances. This is a great film from 1933 which was produced by Darryl F. Zanuck and was locked up in a fault for many years and just recently is being shown on the silver screen. This film is rather mild compared to what we view on the Hollywood screens today, but in 1933 it was very naughty to watch this type of film. Enjoy\"\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"input_ids\",\n      \"properties\": {\n        \"dtype\": \"object\",\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"attention_mask\",\n      \"properties\": {\n        \"dtype\": \"object\",\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    }\n  ]\n}",
+       "type": "dataframe"
+      },
+      "text/html": [
+       "\n",
+       "  <div id=\"df-c6f2fa6e-6156-4d26-9c9b-2eb784f7c4dc\" class=\"colab-df-container\">\n",
+       "    <div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>label</th>\n",
+       "      <th>text</th>\n",
+       "      <th>input_ids</th>\n",
+       "      <th>attention_mask</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>1</td>\n",
+       "      <td>. . . or type on a computer keyboard, they'd p...</td>\n",
+       "      <td>[0, 479, 479, 479, 50, 1907, 15, 10, 3034, 127...</td>\n",
+       "      <td>[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>1</td>\n",
+       "      <td>During 1933 this film had many cuts taken from...</td>\n",
+       "      <td>[0, 1590, 26873, 42, 822, 56, 171, 2599, 551, ...</td>\n",
+       "      <td>[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>\n",
+       "    <div class=\"colab-df-buttons\">\n",
+       "\n",
+       "  <div class=\"colab-df-container\">\n",
+       "    <button class=\"colab-df-convert\" onclick=\"convertToInteractive('df-c6f2fa6e-6156-4d26-9c9b-2eb784f7c4dc')\"\n",
+       "            title=\"Convert this dataframe to an interactive table.\"\n",
+       "            style=\"display:none;\">\n",
+       "\n",
+       "  <svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\" viewBox=\"0 -960 960 960\">\n",
+       "    <path d=\"M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z\"/>\n",
+       "  </svg>\n",
+       "    </button>\n",
+       "\n",
+       "  <style>\n",
+       "    .colab-df-container {\n",
+       "      display:flex;\n",
+       "      gap: 12px;\n",
+       "    }\n",
+       "\n",
+       "    .colab-df-convert {\n",
+       "      background-color: #E8F0FE;\n",
+       "      border: none;\n",
+       "      border-radius: 50%;\n",
+       "      cursor: pointer;\n",
+       "      display: none;\n",
+       "      fill: #1967D2;\n",
+       "      height: 32px;\n",
+       "      padding: 0 0 0 0;\n",
+       "      width: 32px;\n",
+       "    }\n",
+       "\n",
+       "    .colab-df-convert:hover {\n",
+       "      background-color: #E2EBFA;\n",
+       "      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+       "      fill: #174EA6;\n",
+       "    }\n",
+       "\n",
+       "    .colab-df-buttons div {\n",
+       "      margin-bottom: 4px;\n",
+       "    }\n",
+       "\n",
+       "    [theme=dark] .colab-df-convert {\n",
+       "      background-color: #3B4455;\n",
+       "      fill: #D2E3FC;\n",
+       "    }\n",
+       "\n",
+       "    [theme=dark] .colab-df-convert:hover {\n",
+       "      background-color: #434B5C;\n",
+       "      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);\n",
+       "      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));\n",
+       "      fill: #FFFFFF;\n",
+       "    }\n",
+       "  </style>\n",
+       "\n",
+       "    <script>\n",
+       "      const buttonEl =\n",
+       "        document.querySelector('#df-c6f2fa6e-6156-4d26-9c9b-2eb784f7c4dc button.colab-df-convert');\n",
+       "      buttonEl.style.display =\n",
+       "        google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+       "\n",
+       "      async function convertToInteractive(key) {\n",
+       "        const element = document.querySelector('#df-c6f2fa6e-6156-4d26-9c9b-2eb784f7c4dc');\n",
+       "        const dataTable =\n",
+       "          await google.colab.kernel.invokeFunction('convertToInteractive',\n",
+       "                                                    [key], {});\n",
+       "        if (!dataTable) return;\n",
+       "\n",
+       "        const docLinkHtml = 'Like what you see? Visit the ' +\n",
+       "          '<a target=\"_blank\" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'\n",
+       "          + ' to learn more about interactive tables.';\n",
+       "        element.innerHTML = '';\n",
+       "        dataTable['output_type'] = 'display_data';\n",
+       "        await google.colab.output.renderOutput(dataTable, element);\n",
+       "        const docLink = document.createElement('div');\n",
+       "        docLink.innerHTML = docLinkHtml;\n",
+       "        element.appendChild(docLink);\n",
+       "      }\n",
+       "    </script>\n",
+       "  </div>\n",
+       "\n",
+       "\n",
+       "    </div>\n",
+       "  </div>\n"
+      ],
+      "text/plain": [
+       "   label  ...                                     attention_mask\n",
+       "0      1  ...  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...\n",
+       "1      1  ...  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...\n",
+       "\n",
+       "[2 rows x 4 columns]"
+      ]
+     },
+     "execution_count": 19,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "tokenized_dataset['train'].to_pandas().head(2)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "id": "6PnF3mB-ZySW"
+   },
+   "outputs": [],
+   "source": [
+    "data_collator = DataCollatorWithPadding(tokenizer=tokenizer)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "hO4B6Tv6VgnU"
+   },
+   "source": [
+    "# **Evaluation Metrics**"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/",
+     "height": 49,
+     "referenced_widgets": [
+      "1e10c4b66f00448198ac75516d2f9d83",
+      "b50d3999a7584337b08d4ddc910d794e",
+      "ceb012148de54e2a8f9359c1cf87b13e",
+      "87027b8248fa408baaae054407f26e51",
+      "ad65b83d60634a7f8528db40b15f855c",
+      "a6ba1ef5f10349748e2743a07a54f812",
+      "09cbed4e0879417d9451b4ff3690c2b8",
+      "30b6e94bfd5147d29e6aeed8036ca18f",
+      "686793bb14a84067b1b20796e04d6a55",
+      "2fcc3796041748eeb1fa231b1c8038bd",
+      "8390abaebd57418486252a61854ecd51"
+     ]
+    },
+    "executionInfo": {
+     "elapsed": 1610,
+     "status": "ok",
+     "timestamp": 1778239587558,
+     "user": {
+      "displayName": "aleyna kırmızı",
+      "userId": "09194434719786864226"
+     },
+     "user_tz": -180
+    },
+    "id": "BU4GNfU7R47X",
+    "outputId": "d16c3cf9-ca63-4210-d296-5c0ebe03618f"
+   },
+   "outputs": [
+    {
+     "data": {
+      "application/vnd.jupyter.widget-view+json": {
+       "model_id": "1e10c4b66f00448198ac75516d2f9d83",
+       "version_major": 2,
+       "version_minor": 0
+      },
+      "text/plain": [
+       "Downloading builder script: 0.00B [00:00, ?B/s]"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "accuracy = evaluate.load('accuracy')\n",
+    "def compute_metrics(p):\n",
+    "  predictions, labels = p\n",
+    "  predictions = np.argmax(predictions, axis=1)\n",
+    "  return {'accuracy': accuracy.compute(predictions=predictions, references=labels)}"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "8-MvZweqWMz3"
+   },
+   "source": [
+    "# **LoRA Configurations**"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "id": "XrhFSSrzR44w"
+   },
+   "outputs": [],
+   "source": [
+    "peft_config = LoraConfig(\n",
+    "    task_type = \"SEQ_CLS\",#sequence classification\n",
+    "    r=4,\n",
+    "    lora_alpha = 8,\n",
+    "    lora_dropout=0.1,\n",
+    "    target_modules=['query']\n",
+    ")\n",
+    "#"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/"
+    },
+    "executionInfo": {
+     "elapsed": 31,
+     "status": "ok",
+     "timestamp": 1778240242302,
+     "user": {
+      "displayName": "aleyna kırmızı",
+      "userId": "09194434719786864226"
+     },
+     "user_tz": -180
+    },
+    "id": "DAgyePLMR42r",
+    "outputId": "92f29951-b71d-49fd-909d-fe57773c1e86"
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "trainable params: 665,858 || all params: 125,313,028 || trainable%: 0.5314\n"
+     ]
+    },
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "/usr/local/lib/python3.12/dist-packages/peft/mapping_func.py:72: UserWarning: You are trying to modify a model with PEFT for a second time. If you want to reload the model with a different config, make sure to call `.unload()` before.\n",
+      "  warnings.warn(\n",
+      "/usr/local/lib/python3.12/dist-packages/peft/tuners/tuners_utils.py:302: UserWarning: Already found a `peft_config` attribute in the model. This will lead to having multiple adapters in the model. Make sure to know what you are doing!\n",
+      "  warnings.warn(\n"
+     ]
+    }
+   ],
+   "source": [
+    "model_peft = get_peft_model(model,peft_config)\n",
+    "model_peft.print_trainable_parameters()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "BSkt5BwJYP7m"
+   },
+   "source": [
+    "# **Hyperparameters**"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "id": "H3rhKZqrR4z3"
+   },
+   "outputs": [],
+   "source": [
+    "lr= 1e-3\n",
+    "batch_size =4\n",
+    "num_epochs =10\n",
+    "training_args = TrainingArguments(\n",
+    "    output_dir='./Roberta_Classification_results',\n",
+    "    learning_rate=lr,\n",
+    "    per_device_train_batch_size=batch_size,\n",
+    "    per_device_eval_batch_size=batch_size,\n",
+    "    num_train_epochs=num_epochs,\n",
+    "    weight_decay=0.01,\n",
+    "    eval_strategy = 'epoch',\n",
+    "    save_strategy = 'epoch',\n",
+    "    load_best_model_at_end=True,\n",
+    ")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/",
+     "height": 1000,
+     "referenced_widgets": [
+      "f05ec4852f204d6a87e02988b43c5101",
+      "7e36748e5cbf46fe949f453ba24ebbf3",
+      "cb02916be4624f8fbc5e7268f80e2b0a",
+      "b9817a63247d43379a42ee2c9e9a3e8b",
+      "4468aa26a0cf4453a2fffcf18a0a8e73",
+      "c03d47ee20a24f5582a1d04b2c7bbabc",
+      "e59acd3233df40d686be5350d3dfa0a4",
+      "e2fa1f5aab8544adbc508f9020352336",
+      "0f22448048994508b91c4aa4d847f0e1",
+      "dcf7573b8b9c4fa18a6f9bcb63c01c80",
+      "f430a1c6e6db46eebc69cff9f7e84fad",
+      "fdeb77e14c6e41d6b4b66a87ee03b225",
+      "d743c75b1d7a46e3aaca167d1bc77c15",
+      "a5090c4a0a0947cf8979fd3feaed77ed",
+      "75e299139fb549bf95596a45948d979b",
+      "51cbb28f686f426bad5a2595b644002e",
+      "be47822655274f99977708c104e35f7b",
+      "5ed06e0c958649e794ce05c542d4b96f",
+      "b6e291ad560b456cb6865fcc6f62fc0c",
+      "d0483d3e54b648519e2aa0dc6ed74ca6",
+      "b0978fcef8f6465ebea28e99faa3bdc1",
+      "84059989d41f46c889d82fc5cc58d543",
+      "ce685a8b8fda477ab47705b391ca4afc",
+      "bbe06adb613046b0abd0a24a6a2a20d6",
+      "61d0630cdaab44e2a96bb565f140e50c",
+      "0df720d8b81843fd8b9259d0b84ebf71",
+      "f9eb09db165843cc9fae7291a5c098dd",
+      "6037df22b40344209cd4718664ee7ad2",
+      "33a77d769c604eeeab445b84d463a5e9",
+      "0aef9136be914a08906e9633ba038dcb",
+      "340b21f21e534863ab9aa3f3a5403a97",
+      "f0bddd36553c451188ec6cf1fb893ebe",
+      "c92655777949485d875e01a2633729c4",
+      "d7b39409654648feab74b156a0b66eaf",
+      "8826b16c081e4765b7c8512b3b285659",
+      "d10cd1cc8ac14096963224c99123e3d6",
+      "8eab1184f456407ba82ab228837dcb6b",
+      "537cc2d41dea41b5a8f88e5a573d82d1",
+      "193fe69bd142433996c01f8c6c2c4fd3",
+      "e5c3ea19f53b4a499e9bd40a2049e628",
+      "a03914a20e1540c3bbd9916cf5c6bd9d",
+      "8eacc78f715c4386b6a63f3bb6090cb2",
+      "433012aabef849d294613a53ae1a4a18",
+      "531aa34b4e0a406aab55df616b8ff6fb",
+      "b54af76761c94d2d979090bff69880e0",
+      "04b250942a964a5bb04dafd0e21d727e",
+      "bca84ab343554fdc87f2a4638162ddc4",
+      "bc4df04e95154b15ac3146076055356a",
+      "5827927195964b8099834e0aa2972a23",
+      "3b3ecce835b847ab82898a85d091d524",
+      "f6e1c5533a044fd68ab3203e45fe8403",
+      "f441ff46187c44a098d5694ecef410c4",
+      "430402a0147449f7b4b9933056cbee68",
+      "cd024d691a7d4d83b84379c9c831d020",
+      "9891c121549245b397d6a7591e44eadb",
+      "6e9e6978899a4bbbaea398dd390f07d5",
+      "36412dc2e5d64a21bca77223c2560e97",
+      "1050d69194da4078845d33d9e5402014",
+      "8535269a1e804f87b02c2fc4d67f341d",
+      "14a9b6895ac84f6995681c21e94317bb",
+      "20d9088a64c84c7684793a00a8872387",
+      "41c35cc0912044a09d2df5de69f530e5",
+      "bd82f26b33a04e1caa819c7bbbdd56d9",
+      "3a6a28af16aa442384bf327a67d8d360",
+      "316e97e01c2c4354bf6481a3af718984",
+      "09cdb4ca140443f3aa2e39607e0cc1bc",
+      "82297744738345d98218bb5264f4c81c",
+      "16ec5eca6b94436fb69b858a52c0652f",
+      "99cec5463849478d9cae2a45c3a266c1",
+      "4bf4d36a7adf4d2ea7ce20a4656818eb",
+      "0a8a56e0304f4396b499537782daaf7d",
+      "34014579add14c80a5f81dace8a02615",
+      "bb70b277fd5340798f516346dd542f35",
+      "54b684792d5542e68f24491aafd52aac",
+      "43a5307544b244cd9e3cd5e74880b820",
+      "bc6b1ab2c5774ea596453e7879f8ffbf",
+      "4f7d3e5e8f464d19afdc59024d68c6ec",
+      "dac8e05bc51e4ad1a842ee7b8ec1425f",
+      "12ce9805cf3846c2b945884f96d5f171",
+      "0e6b0babe1db432fbd17374534a2ccb7",
+      "f6d73c2397f2408aa3e02685423afa44",
+      "b2c13bc6de7d44e3986640ed450a1329",
+      "4fca9082de4f4b1bb422878f4dff3431",
+      "422f984a4b7a47dd9257790518a88114",
+      "c081f023585f4a06b9ec0a645f437520",
+      "2afa4d4c27f14f7e83ecafec01848705",
+      "dd2d7e7d1d074770a1b314b1d925bc45",
+      "bfa0ecd0b66a4012a7e19c8db3dcdaad",
+      "ffe9020ea9414f8c8df7c146d8472009",
+      "6270d4a0ec00486ba1be484398101dd4",
+      "7d3c94f87f4d45519bad41bf5a659d47",
+      "37160be921254ad7a1b3b02eb63e634d",
+      "44ba20fd3e9247adb4801641b22a7ee8",
+      "8790d028be6a46c3a391de93e47e8bbe",
+      "bd5376bbc37c460393d9168e810357eb",
+      "620a223a30c543f5a8a11f026c8771d8",
+      "773bc3900db542199e169a1a3f462bd9",
+      "779f5841ff9d4afb8bbeb103f7063c9c",
+      "c2c31edd482e47c0be4c27433698b192",
+      "816012752b8243f184b1487576fc92dc",
+      "09b3de935fe4466e8053c69b23e94adc",
+      "9388d288c7a44d7caff6a32361554923",
+      "9fa7d7575b774b94aaf0ebe2202cae0a",
+      "209d5cb6ece5491392cfc33b028cba3e",
+      "502bd30263a544bcb5497f2372369b65",
+      "a8e54e1eee7d48fe80a0c4ccd28dea02",
+      "b8a5173a9ca44dc8a105c97b710112ae",
+      "797a1cf0d21c41989979fb7f7a3fea73",
+      "12be4b0aad24449eb8fea5765e5023ed",
+      "de79b5a60d6d430486dc27548f438145"
+     ]
+    },
+    "executionInfo": {
+     "elapsed": 8816061,
+     "status": "ok",
+     "timestamp": 1778278222694,
+     "user": {
+      "displayName": "aleyna kırmızı",
+      "userId": "09194434719786864226"
+     },
+     "user_tz": -180
+    },
+    "id": "X6u9nQzOYryr",
+    "outputId": "4423c9df-c3dd-432f-d021-f80b5f7a478f"
+   },
+   "outputs": [
+    {
+     "metadata": {
+      "tags": null
+     },
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "/usr/local/lib/python3.12/dist-packages/torch/utils/data/dataloader.py:775: UserWarning: 'pin_memory' argument is set as true but no accelerator is found, then device pinned memory won't be used.\n",
+      "  super().__init__(loader)\n"
+     ]
+    },
+    {
+     "data": {
+      "text/html": [
+       "\n",
+       "    <div>\n",
+       "      \n",
+       "      <progress value='1954' max='2500' style='width:300px; height:20px; vertical-align: middle;'></progress>\n",
+       "      [1954/2500 7:55:13 < 2:12:55, 0.07 it/s, Epoch 7.81/10]\n",
+       "    </div>\n",
+       "    <table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       " <tr style=\"text-align: left;\">\n",
+       "      <th>Epoch</th>\n",
+       "      <th>Training Loss</th>\n",
+       "      <th>Validation Loss</th>\n",
+       "      <th>Accuracy</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <td>1</td>\n",
+       "      <td>No log</td>\n",
+       "      <td>0.236746</td>\n",
+       "      <td>{'accuracy': 0.939}</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>2</td>\n",
+       "      <td>0.321221</td>\n",
+       "      <td>0.390532</td>\n",
+       "      <td>{'accuracy': 0.924}</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>3</td>\n",
+       "      <td>0.321221</td>\n",
+       "      <td>0.427849</td>\n",
+       "      <td>{'accuracy': 0.928}</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>4</td>\n",
+       "      <td>0.123679</td>\n",
+       "      <td>0.387766</td>\n",
+       "      <td>{'accuracy': 0.938}</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>5</td>\n",
+       "      <td>0.123679</td>\n",
+       "      <td>0.497819</td>\n",
+       "      <td>{'accuracy': 0.935}</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>6</td>\n",
+       "      <td>0.051166</td>\n",
+       "      <td>0.466601</td>\n",
+       "      <td>{'accuracy': 0.938}</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>7</td>\n",
+       "      <td>0.051166</td>\n",
+       "      <td>0.556310</td>\n",
+       "      <td>{'accuracy': 0.937}</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table><p>"
+      ],
+      "text/plain": [
+       "<IPython.core.display.HTML object>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "application/vnd.jupyter.widget-view+json": {
+       "model_id": "f05ec4852f204d6a87e02988b43c5101",
+       "version_major": 2,
+       "version_minor": 0
+      },
+      "text/plain": [
+       "Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "metadata": {
+      "tags": null
+     },
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "/usr/local/lib/python3.12/dist-packages/torch/utils/data/dataloader.py:775: UserWarning: 'pin_memory' argument is set as true but no accelerator is found, then device pinned memory won't be used.\n",
+      "  super().__init__(loader)\n"
+     ]
+    },
+    {
+     "data": {
+      "application/vnd.jupyter.widget-view+json": {
+       "model_id": "fdeb77e14c6e41d6b4b66a87ee03b225",
+       "version_major": 2,
+       "version_minor": 0
+      },
+      "text/plain": [
+       "Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "metadata": {
+      "tags": null
+     },
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "/usr/local/lib/python3.12/dist-packages/torch/utils/data/dataloader.py:775: UserWarning: 'pin_memory' argument is set as true but no accelerator is found, then device pinned memory won't be used.\n",
+      "  super().__init__(loader)\n"
+     ]
+    },
+    {
+     "data": {
+      "application/vnd.jupyter.widget-view+json": {
+       "model_id": "ce685a8b8fda477ab47705b391ca4afc",
+       "version_major": 2,
+       "version_minor": 0
+      },
+      "text/plain": [
+       "Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "metadata": {
+      "tags": null
+     },
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "/usr/local/lib/python3.12/dist-packages/torch/utils/data/dataloader.py:775: UserWarning: 'pin_memory' argument is set as true but no accelerator is found, then device pinned memory won't be used.\n",
+      "  super().__init__(loader)\n"
+     ]
+    },
+    {
+     "data": {
+      "application/vnd.jupyter.widget-view+json": {
+       "model_id": "d7b39409654648feab74b156a0b66eaf",
+       "version_major": 2,
+       "version_minor": 0
+      },
+      "text/plain": [
+       "Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "metadata": {
+      "tags": null
+     },
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "/usr/local/lib/python3.12/dist-packages/torch/utils/data/dataloader.py:775: UserWarning: 'pin_memory' argument is set as true but no accelerator is found, then device pinned memory won't be used.\n",
+      "  super().__init__(loader)\n"
+     ]
+    },
+    {
+     "data": {
+      "application/vnd.jupyter.widget-view+json": {
+       "model_id": "b54af76761c94d2d979090bff69880e0",
+       "version_major": 2,
+       "version_minor": 0
+      },
+      "text/plain": [
+       "Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "metadata": {
+      "tags": null
+     },
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "/usr/local/lib/python3.12/dist-packages/torch/utils/data/dataloader.py:775: UserWarning: 'pin_memory' argument is set as true but no accelerator is found, then device pinned memory won't be used.\n",
+      "  super().__init__(loader)\n"
+     ]
+    },
+    {
+     "data": {
+      "application/vnd.jupyter.widget-view+json": {
+       "model_id": "6e9e6978899a4bbbaea398dd390f07d5",
+       "version_major": 2,
+       "version_minor": 0
+      },
+      "text/plain": [
+       "Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "metadata": {
+      "tags": null
+     },
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "/usr/local/lib/python3.12/dist-packages/torch/utils/data/dataloader.py:775: UserWarning: 'pin_memory' argument is set as true but no accelerator is found, then device pinned memory won't be used.\n",
+      "  super().__init__(loader)\n"
+     ]
+    },
+    {
+     "data": {
+      "application/vnd.jupyter.widget-view+json": {
+       "model_id": "82297744738345d98218bb5264f4c81c",
+       "version_major": 2,
+       "version_minor": 0
+      },
+      "text/plain": [
+       "Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "metadata": {
+      "tags": null
+     },
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "/usr/local/lib/python3.12/dist-packages/torch/utils/data/dataloader.py:775: UserWarning: 'pin_memory' argument is set as true but no accelerator is found, then device pinned memory won't be used.\n",
+      "  super().__init__(loader)\n"
+     ]
+    },
+    {
+     "data": {
+      "text/html": [
+       "\n",
+       "    <div>\n",
+       "      \n",
+       "      <progress value='2500' max='2500' style='width:300px; height:20px; vertical-align: middle;'></progress>\n",
+       "      [2500/2500 10:22:17, Epoch 10/10]\n",
+       "    </div>\n",
+       "    <table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       " <tr style=\"text-align: left;\">\n",
+       "      <th>Epoch</th>\n",
+       "      <th>Training Loss</th>\n",
+       "      <th>Validation Loss</th>\n",
+       "      <th>Accuracy</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <td>1</td>\n",
+       "      <td>No log</td>\n",
+       "      <td>0.236746</td>\n",
+       "      <td>{'accuracy': 0.939}</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>2</td>\n",
+       "      <td>0.321221</td>\n",
+       "      <td>0.390532</td>\n",
+       "      <td>{'accuracy': 0.924}</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>3</td>\n",
+       "      <td>0.321221</td>\n",
+       "      <td>0.427849</td>\n",
+       "      <td>{'accuracy': 0.928}</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>4</td>\n",
+       "      <td>0.123679</td>\n",
+       "      <td>0.387766</td>\n",
+       "      <td>{'accuracy': 0.938}</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>5</td>\n",
+       "      <td>0.123679</td>\n",
+       "      <td>0.497819</td>\n",
+       "      <td>{'accuracy': 0.935}</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>6</td>\n",
+       "      <td>0.051166</td>\n",
+       "      <td>0.466601</td>\n",
+       "      <td>{'accuracy': 0.938}</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>7</td>\n",
+       "      <td>0.051166</td>\n",
+       "      <td>0.556310</td>\n",
+       "      <td>{'accuracy': 0.937}</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>8</td>\n",
+       "      <td>0.012434</td>\n",
+       "      <td>0.561386</td>\n",
+       "      <td>{'accuracy': 0.939}</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>9</td>\n",
+       "      <td>0.012434</td>\n",
+       "      <td>0.591888</td>\n",
+       "      <td>{'accuracy': 0.939}</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <td>10</td>\n",
+       "      <td>0.005390</td>\n",
+       "      <td>0.599985</td>\n",
+       "      <td>{'accuracy': 0.941}</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table><p>"
+      ],
+      "text/plain": [
+       "<IPython.core.display.HTML object>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "application/vnd.jupyter.widget-view+json": {
+       "model_id": "dac8e05bc51e4ad1a842ee7b8ec1425f",
+       "version_major": 2,
+       "version_minor": 0
+      },
+      "text/plain": [
+       "Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "/usr/local/lib/python3.12/dist-packages/torch/utils/data/dataloader.py:775: UserWarning: 'pin_memory' argument is set as true but no accelerator is found, then device pinned memory won't be used.\n",
+      "  super().__init__(loader)\n"
+     ]
+    },
+    {
+     "data": {
+      "application/vnd.jupyter.widget-view+json": {
+       "model_id": "ffe9020ea9414f8c8df7c146d8472009",
+       "version_major": 2,
+       "version_minor": 0
+      },
+      "text/plain": [
+       "Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "/usr/local/lib/python3.12/dist-packages/torch/utils/data/dataloader.py:775: UserWarning: 'pin_memory' argument is set as true but no accelerator is found, then device pinned memory won't be used.\n",
+      "  super().__init__(loader)\n"
+     ]
+    },
+    {
+     "data": {
+      "application/vnd.jupyter.widget-view+json": {
+       "model_id": "816012752b8243f184b1487576fc92dc",
+       "version_major": 2,
+       "version_minor": 0
+      },
+      "text/plain": [
+       "Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "There were missing keys in the checkpoint model loaded: ['roberta.embeddings.LayerNorm.weight', 'roberta.embeddings.LayerNorm.bias', 'roberta.encoder.layer.0.attention.output.LayerNorm.weight', 'roberta.encoder.layer.0.attention.output.LayerNorm.bias', 'roberta.encoder.layer.0.output.LayerNorm.weight', 'roberta.encoder.layer.0.output.LayerNorm.bias', 'roberta.encoder.layer.1.attention.output.LayerNorm.weight', 'roberta.encoder.layer.1.attention.output.LayerNorm.bias', 'roberta.encoder.layer.1.output.LayerNorm.weight', 'roberta.encoder.layer.1.output.LayerNorm.bias', 'roberta.encoder.layer.2.attention.output.LayerNorm.weight', 'roberta.encoder.layer.2.attention.output.LayerNorm.bias', 'roberta.encoder.layer.2.output.LayerNorm.weight', 'roberta.encoder.layer.2.output.LayerNorm.bias', 'roberta.encoder.layer.3.attention.output.LayerNorm.weight', 'roberta.encoder.layer.3.attention.output.LayerNorm.bias', 'roberta.encoder.layer.3.output.LayerNorm.weight', 'roberta.encoder.layer.3.output.LayerNorm.bias', 'roberta.encoder.layer.4.attention.output.LayerNorm.weight', 'roberta.encoder.layer.4.attention.output.LayerNorm.bias', 'roberta.encoder.layer.4.output.LayerNorm.weight', 'roberta.encoder.layer.4.output.LayerNorm.bias', 'roberta.encoder.layer.5.attention.output.LayerNorm.weight', 'roberta.encoder.layer.5.attention.output.LayerNorm.bias', 'roberta.encoder.layer.5.output.LayerNorm.weight', 'roberta.encoder.layer.5.output.LayerNorm.bias', 'roberta.encoder.layer.6.attention.output.LayerNorm.weight', 'roberta.encoder.layer.6.attention.output.LayerNorm.bias', 'roberta.encoder.layer.6.output.LayerNorm.weight', 'roberta.encoder.layer.6.output.LayerNorm.bias', 'roberta.encoder.layer.7.attention.output.LayerNorm.weight', 'roberta.encoder.layer.7.attention.output.LayerNorm.bias', 'roberta.encoder.layer.7.output.LayerNorm.weight', 'roberta.encoder.layer.7.output.LayerNorm.bias', 'roberta.encoder.layer.8.attention.output.LayerNorm.weight', 'roberta.encoder.layer.8.attention.output.LayerNorm.bias', 'roberta.encoder.layer.8.output.LayerNorm.weight', 'roberta.encoder.layer.8.output.LayerNorm.bias', 'roberta.encoder.layer.9.attention.output.LayerNorm.weight', 'roberta.encoder.layer.9.attention.output.LayerNorm.bias', 'roberta.encoder.layer.9.output.LayerNorm.weight', 'roberta.encoder.layer.9.output.LayerNorm.bias', 'roberta.encoder.layer.10.attention.output.LayerNorm.weight', 'roberta.encoder.layer.10.attention.output.LayerNorm.bias', 'roberta.encoder.layer.10.output.LayerNorm.weight', 'roberta.encoder.layer.10.output.LayerNorm.bias', 'roberta.encoder.layer.11.attention.output.LayerNorm.weight', 'roberta.encoder.layer.11.attention.output.LayerNorm.bias', 'roberta.encoder.layer.11.output.LayerNorm.weight', 'roberta.encoder.layer.11.output.LayerNorm.bias'].\n",
+      "There were unexpected keys in the checkpoint model loaded: ['roberta.embeddings.LayerNorm.beta', 'roberta.embeddings.LayerNorm.gamma', 'roberta.encoder.layer.0.attention.output.LayerNorm.beta', 'roberta.encoder.layer.0.attention.output.LayerNorm.gamma', 'roberta.encoder.layer.0.output.LayerNorm.beta', 'roberta.encoder.layer.0.output.LayerNorm.gamma', 'roberta.encoder.layer.1.attention.output.LayerNorm.beta', 'roberta.encoder.layer.1.attention.output.LayerNorm.gamma', 'roberta.encoder.layer.1.output.LayerNorm.beta', 'roberta.encoder.layer.1.output.LayerNorm.gamma', 'roberta.encoder.layer.2.attention.output.LayerNorm.beta', 'roberta.encoder.layer.2.attention.output.LayerNorm.gamma', 'roberta.encoder.layer.2.output.LayerNorm.beta', 'roberta.encoder.layer.2.output.LayerNorm.gamma', 'roberta.encoder.layer.3.attention.output.LayerNorm.beta', 'roberta.encoder.layer.3.attention.output.LayerNorm.gamma', 'roberta.encoder.layer.3.output.LayerNorm.beta', 'roberta.encoder.layer.3.output.LayerNorm.gamma', 'roberta.encoder.layer.4.attention.output.LayerNorm.beta', 'roberta.encoder.layer.4.attention.output.LayerNorm.gamma', 'roberta.encoder.layer.4.output.LayerNorm.beta', 'roberta.encoder.layer.4.output.LayerNorm.gamma', 'roberta.encoder.layer.5.attention.output.LayerNorm.beta', 'roberta.encoder.layer.5.attention.output.LayerNorm.gamma', 'roberta.encoder.layer.5.output.LayerNorm.beta', 'roberta.encoder.layer.5.output.LayerNorm.gamma', 'roberta.encoder.layer.6.attention.output.LayerNorm.beta', 'roberta.encoder.layer.6.attention.output.LayerNorm.gamma', 'roberta.encoder.layer.6.output.LayerNorm.beta', 'roberta.encoder.layer.6.output.LayerNorm.gamma', 'roberta.encoder.layer.7.attention.output.LayerNorm.beta', 'roberta.encoder.layer.7.attention.output.LayerNorm.gamma', 'roberta.encoder.layer.7.output.LayerNorm.beta', 'roberta.encoder.layer.7.output.LayerNorm.gamma', 'roberta.encoder.layer.8.attention.output.LayerNorm.beta', 'roberta.encoder.layer.8.attention.output.LayerNorm.gamma', 'roberta.encoder.layer.8.output.LayerNorm.beta', 'roberta.encoder.layer.8.output.LayerNorm.gamma', 'roberta.encoder.layer.9.attention.output.LayerNorm.beta', 'roberta.encoder.layer.9.attention.output.LayerNorm.gamma', 'roberta.encoder.layer.9.output.LayerNorm.beta', 'roberta.encoder.layer.9.output.LayerNorm.gamma', 'roberta.encoder.layer.10.attention.output.LayerNorm.beta', 'roberta.encoder.layer.10.attention.output.LayerNorm.gamma', 'roberta.encoder.layer.10.output.LayerNorm.beta', 'roberta.encoder.layer.10.output.LayerNorm.gamma', 'roberta.encoder.layer.11.attention.output.LayerNorm.beta', 'roberta.encoder.layer.11.attention.output.LayerNorm.gamma', 'roberta.encoder.layer.11.output.LayerNorm.beta', 'roberta.encoder.layer.11.output.LayerNorm.gamma'].\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "TrainOutput(global_step=2500, training_loss=0.10277801027297974, metrics={'train_runtime': 37366.5881, 'train_samples_per_second': 0.268, 'train_steps_per_second': 0.067, 'total_flos': 2154158913873120.0, 'train_loss': 0.10277801027297974, 'epoch': 10.0})"
+      ]
+     },
+     "execution_count": 33,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "trainer = Trainer(\n",
+    "    model=model,\n",
+    "    args=training_args,\n",
+    "    train_dataset=tokenized_dataset[\"train\"],\n",
+    "    eval_dataset=tokenized_dataset[\"validation\"],\n",
+    "    data_collator=data_collator,\n",
+    "    compute_metrics=compute_metrics\n",
+    ")\n",
+    "trainer.train()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/"
+    },
+    "executionInfo": {
+     "elapsed": 1869,
+     "status": "ok",
+     "timestamp": 1778278452623,
+     "user": {
+      "displayName": "aleyna kırmızı",
+      "userId": "09194434719786864226"
+     },
+     "user_tz": -180
+    },
+    "id": "00jaC9uBZ_An",
+    "outputId": "fb3cf886-056a-4df1-c0a1-376d8832cd1b"
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "It was good.----POSITIVE\n",
+      "Not a fan, don't recommed.----NEGATIVE\n",
+      "Better than the first one.----NEGATIVE\n",
+      "This is not worth watching even once.----NEGATIVE\n",
+      "This one is a pass.----NEGATIVE\n"
+     ]
+    }
+   ],
+   "source": [
+    "text_list = [\"It was good.\", \"Not a fan, don't recommed.\", \"Better than the first one.\", \"This is not worth watching even once.\", \"This one is a pass.\"]\n",
+    "for text in text_list:\n",
+    "  inputs = tokenizer.encode(text, return_tensors='pt')\n",
+    "  logits = model(inputs).logits\n",
+    "  predictions = torch.max(logits,1).indices\n",
+    "  print(text+\"----\"+ id2label[predictions.tolist()[0]])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/",
+     "height": 378
+    },
+    "executionInfo": {
+     "elapsed": 2051,
+     "status": "error",
+     "timestamp": 1778322835769,
+     "user": {
+      "displayName": "aleyna kırmızı",
+      "userId": "09194434719786864226"
+     },
+     "user_tz": -180
+    },
+    "id": "PFrB4DGQb5cu",
+    "outputId": "cd856139-5bbc-48ce-e846-fa3ab887d2cb"
+   },
+   "outputs": [
+    {
+     "ename": "FileNotFoundError",
+     "evalue": "[Errno 2] No such file or directory: 'fine_tune_RoBERTa_with_LoRA_text_classification.ipynb'",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mFileNotFoundError\u001b[0m                         Traceback (most recent call last)",
+      "\u001b[0;32m/tmp/ipykernel_24373/520453084.py\u001b[0m in \u001b[0;36m<cell line: 0>\u001b[0;34m()\u001b[0m\n\u001b[1;32m      3\u001b[0m \u001b[0mpath\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;34m\"fine_tune_RoBERTa_with_LoRA_text_classification.ipynb\"\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      4\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m----> 5\u001b[0;31m \u001b[0;32mwith\u001b[0m \u001b[0mopen\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mpath\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m\"r\"\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mencoding\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0;34m\"utf-8\"\u001b[0m\u001b[0;34m)\u001b[0m \u001b[0;32mas\u001b[0m \u001b[0mf\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m      6\u001b[0m     \u001b[0mnb\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mnbformat\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mread\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mf\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mas_version\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0;36m4\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      7\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;31mFileNotFoundError\u001b[0m: [Errno 2] No such file or directory: 'fine_tune_RoBERTa_with_LoRA_text_classification.ipynb'"
+     ]
+    }
+   ],
+   "source": [
+    "import nbformat\n",
+    "\n",
+    "path = \"fine-tune-RoBERTa-with-LoRA-text-classification_final\"\n",
+    "\n",
+    "with open(path, \"r\", encoding=\"utf-8\") as f:\n",
+    "    nb = nbformat.read(f, as_version=4)\n",
+    "\n",
+    "if \"widgets\" in nb[\"metadata\"]:\n",
+    "    del nb[\"metadata\"][\"widgets\"]\n",
+    "\n",
+    "with open(path, \"w\", encoding=\"utf-8\") as f:\n",
+    "    nbformat.write(nb, f)\n",
+    "\n",
+    "print(\"cleaned\")"
+   ]
+  }
+ ],
+ "metadata": {
+  "colab": {
+   "authorship_tag": "ABX9TyMfqH5iMAhrU+/0aj+vBXAL",
+   "mount_file_id": "16jd5JHcUxQnkmYbri_kpA8Bkt0VKUSbY",
+   "provenance": [
+    {
+     "file_id": "1dLIZ-W3hn0Acf7KKV0DflL94kVzb1oHd",
+     "timestamp": 1778322800789
+    }
+   ]
+  },
+  "kernelspec": {
+   "display_name": "Python 3",
+   "name": "python3"
+  },
+  "language_info": {
+   "name": "python"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 0
+}
